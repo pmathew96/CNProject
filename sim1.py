@@ -26,8 +26,8 @@ def depolarize(N):
 while True:
     randNum1 = random.randint(0,1)
     randNum2 = random.randint(0,1)
-    N1.potential += 1
-    N2.potential += 1
+    N1.potential += randNum1
+    N2.potential += randNum2
     # if N1.potential >= N1.threshold & N2.potential >= N2.threshold:
     #     randNum3 = 1#random.randint(0,1)
     #     if randNum3 == 1:
