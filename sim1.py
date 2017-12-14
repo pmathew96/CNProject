@@ -12,7 +12,6 @@ import time
 
 
 class Neuron:
-    name = ''
     firing = 0
     firedPreviously = 0
     inhibited = 0
@@ -23,11 +22,12 @@ class Neuron:
 
 
 N1 = Neuron('Neuron 1', -70, -68)
+
 N2 = Neuron('Neuron 2', -70, -68)
 # N3 = Neuron('Neuron 3', -70, -69)
 # N4 = Neuron('Neuron 4', -70, -69)
 
-#f = open('s10.txt', 'w')
+f = open('s10.txt', 'w')
 ctr = 0
 
 
@@ -61,8 +61,6 @@ while True:
     #     N2.firing = 1
         #N1.potential -= 1
         #N4.potential += 1
-    #ret = str(N1.firing) + ',' + str(N2.firing)
-    #f.write(ret+'\n')
 
 
 
@@ -93,7 +91,11 @@ while True:
     else:
         N2.firing = 1
 
-    print('N1:(' + str(N1.potential)+',' + str(N1.firing)+')'+'\t\tN2:(' + str(N2.potential)+',' + str(N2.firing) + ')')
+    print('N1:(' + str(N1.potential)+')'+'\t\tN2:(' + str(N2.potential)+',' + ')')
+    print(str(N1.firing)+','+str(N2.firing))
+
+    ret = str(N1.firing) + ',' + str(N2.firing)
+    f.write(ret+'\n')
 
     if N1.inhibited == 1:
         N1.inhibited = 0
@@ -125,7 +127,7 @@ while True:
 
     time.sleep(1)
 
-#f.close()
+f.close()
 
 
 
