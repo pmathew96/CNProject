@@ -7,7 +7,8 @@ flag2 = 0
 
 ctr = 0
 
-intervalList = []
+alt = 0
+nalt = 0
 
 with open("test.txt") as f:
     for line in f:
@@ -16,43 +17,39 @@ with open("test.txt") as f:
             if flag2 == 1:
                 flag2 = 0
                 flag1 = 1
-                intervalList.append(ctr+1)
+                alt += 1
                 ctr = 0
-            elif flag1 == 0:
+            elif flag2 == 0:
                 ctr = 0
                 flag1 = 1
+                nalt += 1
             else:
                 ctr += 1
         elif line == "0,1":
             if flag1 == 1:
                 flag1 = 0
                 flag2 = 1
-                intervalList.append(ctr+1)
+                alt += 1
                 ctr = 0
-            elif flag2 == 0:
+            elif flag1 == 0:
                 ctr = 0
                 flag2 = 1
+                nalt += 1
             else:
                 ctr += 1
         else:
             ctr += 1
 
-print(intervalList)
-freqList = []
-labelList = []
-
-for i in range(1,13):
-    freqList.append(intervalList.count(i))
-    labelList.append(str(i))
+freqList = [alt, nalt]
+labelList = ['Alternating', 'Not Alternating']
 
 
-print(freqList)
 
-y = np.arange(1,)
-x = np.arange(1,13)
+y = np.arange(1,3)
+x = np.arange(1,3)
 plt.bar(y, freqList)
 plt.xticks(x, labelList)
-plt.yticks(y)
+plt.yticks(np.arange(1,31,4))
 plt.show()
 
 
