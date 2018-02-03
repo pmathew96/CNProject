@@ -17,13 +17,13 @@ class Neuron:
     inhibited = 0
     def __init__(self, name, p, t):
         self.name = name
-        self.potential = p
+        self.resting = p
         self.threshold = t
 
 
-N1 = Neuron('Neuron 1', -70, -68)
+N1 = Neuron('Neuron 1', -70, -55)
 
-N2 = Neuron('Neuron 2', -70, -68)
+N2 = Neuron('Neuron 2', -70, -55)
 
 f = open('test.txt', 'w')
 ctr = 0
@@ -32,64 +32,58 @@ ctr = 0
 def depolarize(N):
     N.potential += 2
 
-while True:
+i = 0
 
+while i < 1000000:
+
+    if N1.firing == 1:
+        N1.firing = 0
+
+    if N2.firing == 1:
+        N2.firing = 0
 
     #generating random numbers
-    randNum1 = random.uniform(0,1)
-    randNum2 = random.uniform(0,1)
-    N1.potential += randNum1
-    N2.potential += randNum2
+    randNum1 = random.randint(0,5)
+    if randNum1 != 0:
+        randNum1 -= random.uniform(0,1)
+    randNum2 = random.randint(0,5)
+    if randNum2 != 0:
+        randNum2 -= random.uniform(0,1)
+    N1.resting += randNum1
+    N2.resting += randNum2
 
-    if N1.firedPreviously == 1:
-        N2.potential -= 2
+    if N1.resting > N1.threshold:
+        N1.firing = 1
         N2.inhibited = 1
 
-    if N2.firedPreviously == 1:
-        N1.potential -= 2
+    if N2.resting > N2.threshold:
+        N2.firing = 1
         N1.inhibited = 1
 
-    # Checking the potential of each neuron and setting the firing variable
-
-    if N1.potential < N1.threshold:
+    if N1.inhibited == 1:
+        N1.resting -= 20
         N1.firing = 0
-        N1.firedPreviously = 0
-    else:
-        N1.firing = 1
+        N1.inhibited = 0
 
-    if N2.potential < N2.threshold:
+    if N2.inhibited == 1:
+        N2.resting -= 20
         N2.firing = 0
-        N2.firedPreviously = 0
-    else:
-        N2.firing = 1
+        N2.inhibited = 0
 
-    print('N1:(' + str(N1.potential)+')'+'\t\tN2:(' + str(N2.potential)+',' + ')')
+
+    print('N1:(' + str(N1.resting) + ')' + '\t\tN2:(' + str(N2.resting) + ',' + ')')
     print(str(N1.firing)+','+str(N2.firing))
+
+    if N1.firing == 1:
+        N1.resting = -75
+
+    if N2.firing == 1:
+        N2.resting = -75
 
     ret = str(N1.firing) + ',' + str(N2.firing)
     f.write(ret+'\n')
 
-    if N1.inhibited == 1:
-        N1.inhibited = 0
-        N1.potential += 2
-    if N2.inhibited == 1:
-        N2.inhibited = 0
-        N2.potential += 2
-
-        # Once the neurons fire, the potential is reset to resting potential
-        # and the firing variable is reset to 0.
-        # The hyperpolarized neurons get depolarized.
-    if N1.firing == 1:
-        N1.potential = -70
-        N1.firing = 0
-        N1.firedPreviously = 1
-    if N2.firing == 1:
-        N2.potential = -70
-        N2.firing = 0
-        N2.firedPreviously = 1
-
-
-    time.sleep(1)
+    #time.sleep(1)
 
 f.close()
 
