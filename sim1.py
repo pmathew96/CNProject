@@ -83,6 +83,7 @@ while i < 1000000:
     ret = str(N1.firing) + ',' + str(N2.firing)
     f.write(ret+'\n')
 
+    i += 1
     #time.sleep(1)
 
 f.close()
