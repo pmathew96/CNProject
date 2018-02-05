@@ -25,6 +25,8 @@ N1 = Neuron('Neuron 1', -70, -55)
 
 N2 = Neuron('Neuron 2', -70, -55)
 
+N3 = Neuron('Neuron 3', -70, -55)
+
 f = open('test.txt', 'w')
 ctr = 0
 
@@ -32,9 +34,9 @@ ctr = 0
 def depolarize(N):
     N.potential += 2
 
-i = 0
+#i = 0
 
-while i < 1000000:
+while True: #i < 1000000:
 
     if N1.firing == 1:
         N1.firing = 0
@@ -83,7 +85,7 @@ while i < 1000000:
     ret = str(N1.firing) + ',' + str(N2.firing)
     f.write(ret+'\n')
 
-    i += 1
+    #i += 1
     #time.sleep(1)
 
 f.close()
