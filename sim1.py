@@ -71,10 +71,10 @@ while True: #i < 1000000:
         N2.firing = 0
 
     if N1.firing == 1:
-        N3.potential += 10
+        N3.potential += 20
 
     if N2.firing == 1:
-        N3.potential -= 10
+        N3.potential += 20
 
     if N3.potential >= N3.threshold:
         N3.firing = 1
@@ -82,10 +82,10 @@ while True: #i < 1000000:
     else:
         N3.firing = 0
 
-    print(str(N3.firing)+', '+str(N3.potential))
+    #print(str(N3.firing)+', '+str(N3.potential))
 
-    #print('N1:(' + str(N1.potential) + ')' + '\t\tN2:(' + str(N2.potential) + ',' + ')')
-    #print(str(N1.firing)+','+str(N2.firing))
+    print('N1:(' + str(N1.potential) + ')' + '\t\tN2:(' + str(N2.potential) + ',' + ')')
+    print(str(N1.firing)+','+str(N2.firing))
 
     if N1.firing == 1:
         N1.firing = 0
