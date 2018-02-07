@@ -17,7 +17,7 @@ class Neuron:
     inhibited = 0
     def __init__(self, name, p, t):
         self.name = name
-        self.resting = p
+        self.potential = p
         self.threshold = t
 
 
@@ -51,42 +51,66 @@ while True: #i < 1000000:
     randNum2 = random.randint(0,5)
     if randNum2 != 0:
         randNum2 -= random.uniform(0,1)
-    N1.resting += randNum1
-    N2.resting += randNum2
+    N1.potential += randNum1
+    N2.potential += randNum2
 
-    if N1.resting > N1.threshold:
+    if N1.potential > N1.threshold:
         N1.firing = 1
         N2.inhibited = 1
 
-    if N2.resting > N2.threshold:
+    if N2.potential > N2.threshold:
         N2.firing = 1
         N1.inhibited = 1
 
     if N1.inhibited == 1:
-        N1.resting -= 20
+        N1.potential -= 20
         N1.firing = 0
-        N1.inhibited = 0
 
     if N2.inhibited == 1:
-        N2.resting -= 20
+        N2.potential -= 20
         N2.firing = 0
-        N2.inhibited = 0
-
-
-    print('N1:(' + str(N1.resting) + ')' + '\t\tN2:(' + str(N2.resting) + ',' + ')')
-    print(str(N1.firing)+','+str(N2.firing))
 
     if N1.firing == 1:
-        N1.resting = -75
+        N3.potential += 10
 
     if N2.firing == 1:
-        N2.resting = -75
+        N3.potential -= 10
 
-    ret = str(N1.firing) + ',' + str(N2.firing)
-    f.write(ret+'\n')
+    if N3.potential >= N3.threshold:
+        N3.firing = 1
+
+    else:
+        N3.firing = 0
+
+    print(str(N3.firing)+', '+str(N3.potential))
+
+    #print('N1:(' + str(N1.potential) + ')' + '\t\tN2:(' + str(N2.potential) + ',' + ')')
+    #print(str(N1.firing)+','+str(N2.firing))
+
+    if N1.firing == 1:
+        N1.firing = 0
+        N1.potential = -70
+
+    if N2.firing == 1:
+        N2.firing = 0
+        N2.potential = -70
+
+    if N3.firing == 1:
+        N3.firing = 0
+        N3.potential = -70
+
+    if N1.inhibited == 1:
+        N1.inhibited = 0
+        N1.potential += 20
+
+    if N2.inhibited == 1:
+        N2.inhibited = 0
+        N2.potential += 20
+    #ret = str(N1.firing) + ',' + str(N2.firing)
+    #f.write(ret+'\n')
 
     #i += 1
-    #time.sleep(1)
+    time.sleep(1)
 
 f.close()
 
