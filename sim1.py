@@ -34,15 +34,9 @@ ctr = 0
 def depolarize(N):
     N.potential += 2
 
-#i = 0
+i = 0
 
-while True: #i < 1000000:
-
-    if N1.firing == 1:
-        N1.firing = 0
-
-    if N2.firing == 1:
-        N2.firing = 0
+while i < 1000000:
 
     #generating random numbers
     randNum1 = random.randint(0,5)
@@ -99,6 +93,10 @@ while True: #i < 1000000:
         N3.firing = 0
         N3.potential = -70
 
+    if N1.inhibited == 1 & N2.inhibited == 1:
+        N2.inhibited = 0
+        N1.inhibited = 0
+
     if N1.inhibited == 1:
         N1.inhibited = 0
         N1.potential += 20
@@ -106,11 +104,11 @@ while True: #i < 1000000:
     if N2.inhibited == 1:
         N2.inhibited = 0
         N2.potential += 20
-    #ret = str(N1.firing) + ',' + str(N2.firing)
-    #f.write(ret+'\n')
+    ret = str(N1.firing) + ',' + str(N2.firing)
+    f.write(ret+'\n')
 
-    #i += 1
-    time.sleep(1)
+    i += 1
+    #time.sleep(1)
 
 f.close()
 
