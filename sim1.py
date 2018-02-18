@@ -27,7 +27,7 @@ N2 = Neuron('Neuron 2', -70, -55)
 
 N3 = Neuron('Neuron 3', -70, -55)
 
-f = open('test.txt', 'w')
+f = open('test1.txt', 'w')
 ctr = 0
 
 
@@ -37,6 +37,14 @@ def depolarize(N):
 i = 0
 
 while i < 1000000:
+
+    if N1.firing == 1:
+        N1.firing = 0
+        N1.potential -= 25
+
+    if N2.firing == 1:
+        N2.firing = 0
+        N2.potential -= 25
 
     #generating random numbers
     randNum1 = random.randint(0,5)
@@ -81,34 +89,28 @@ while i < 1000000:
     print('N1:(' + str(N1.potential) + ')' + '\t\tN2:(' + str(N2.potential) + ',' + ')')
     print(str(N1.firing)+','+str(N2.firing))
 
-    if N1.firing == 1:
-        N1.firing = 0
-        N1.potential = -70
+    ret = str(N1.firing) + ',' + str(N2.firing)
 
-    if N2.firing == 1:
-        N2.firing = 0
-        N2.potential = -70
 
     if N3.firing == 1:
         N3.firing = 0
         N3.potential = -70
 
-    if N1.inhibited == 1 & N2.inhibited == 1:
-        N2.inhibited = 0
-        N1.inhibited = 0
+    # if N1.inhibited == 1 & N2.inhibited == 1:
+    #     N2.inhibited = 0
+    #     N1.inhibited = 0
 
     if N1.inhibited == 1:
         N1.inhibited = 0
-        N1.potential += 20
+        N1.potential += random.uniform(10, 15)
 
     if N2.inhibited == 1:
         N2.inhibited = 0
-        N2.potential += 20
-    ret = str(N1.firing) + ',' + str(N2.firing)
+        N2.potential += random.uniform(10, 15)
     f.write(ret+'\n')
 
     i += 1
-    #time.sleep(1)
+    time.sleep(1)
 
 f.close()
 
