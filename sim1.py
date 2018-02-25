@@ -20,6 +20,11 @@ class Neuron:
         self.potential = p
         self.threshold = t
 
+def inhib(N):
+    N.potential += 30
+
+
+
 
 N1 = Neuron('Neuron 1', -70, -55)
 
@@ -27,7 +32,7 @@ N2 = Neuron('Neuron 2', -70, -55)
 
 N3 = Neuron('Neuron 3', -70, -55)
 
-f = open('test1.txt', 'w')
+f = open('test212.txt', 'w')
 ctr = 0
 
 
@@ -35,16 +40,30 @@ def depolarize(N):
     N.potential += 2
 
 i = 0
+global inhibCtr
+inhibCtr = 0
+
+def inhib(N):
+    global inhibCtr
+    if inhibCtr == 0:
+        N.potential -= 30
+    inhibCtr += 1
+    if inhibCtr == 5:
+        inhibCtr = 0
+        N.inhibited = 0
+        N.potential += 20
+
 
 while i < 1000000:
 
     if N1.firing == 1:
         N1.firing = 0
-        N1.potential -= 25
+        N1.potential = -75
 
     if N2.firing == 1:
         N2.firing = 0
-        N2.potential -= 25
+        N2.potential = -75
+
 
     #generating random numbers
     randNum1 = random.randint(0,5)
@@ -65,12 +84,11 @@ while i < 1000000:
         N1.inhibited = 1
 
     if N1.inhibited == 1:
-        N1.potential -= 20
-        N1.firing = 0
+        inhib(N1)
+
 
     if N2.inhibited == 1:
-        N2.potential -= 20
-        N2.firing = 0
+        inhib(N2)
 
     if N1.firing == 1:
         N3.potential += 20
@@ -90,24 +108,30 @@ while i < 1000000:
     print(str(N1.firing)+','+str(N2.firing))
 
     ret = str(N1.firing) + ',' + str(N2.firing)
-
+    f.write(ret+'\n')
 
     if N3.firing == 1:
         N3.firing = 0
         N3.potential = -70
 
     # if N1.inhibited == 1 & N2.inhibited == 1:
+    #     N1.inhibited = 0
+    #     N2.inhibited = 0
+    #     N1.potential += random.uniform(10,15)
+    #     N2.potential += random.uniform(10,15)
+    #
+    # if N1.inhibited == 1:
+    #     N1.inhibited = 0
+    #     N1.potential += random.uniform(25,30)
+    #
+    # if N2.inhibited == 1:
+    #     N2.inhibited = 0
+    #     N2.potential += random.uniform(25,30)
+
+    # if N1.inhibited == 1 & N2.inhibited == 1:
     #     N2.inhibited = 0
     #     N1.inhibited = 0
 
-    if N1.inhibited == 1:
-        N1.inhibited = 0
-        N1.potential += random.uniform(10, 15)
-
-    if N2.inhibited == 1:
-        N2.inhibited = 0
-        N2.potential += random.uniform(10, 15)
-    f.write(ret+'\n')
 
     i += 1
     time.sleep(1)
