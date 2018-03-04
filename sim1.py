@@ -1,7 +1,5 @@
 '''
-1. Neuron fires
-2. Neuron inhibits other neuron
-3.
+1.
 '''
 
 
@@ -9,6 +7,7 @@
 
 import random
 import time
+import datetime
 
 
 class Neuron:
@@ -23,7 +22,7 @@ class Neuron:
 def inhib(N):
     N.potential += 30
 
-
+date = datetime.datetime.now()
 
 
 N1 = Neuron('Neuron 1', -70, -55)
@@ -32,7 +31,7 @@ N2 = Neuron('Neuron 2', -70, -55)
 
 N3 = Neuron('Neuron 3', -70, -55)
 
-f = open('test212.txt', 'w')
+f = open(str(date) + '.txt', 'w')
 ctr = 0
 
 
@@ -48,10 +47,10 @@ def inhib(N):
     if inhibCtr == 0:
         N.potential -= 30
     inhibCtr += 1
-    if inhibCtr == 5:
+    if inhibCtr == 8:
         inhibCtr = 0
         N.inhibited = 0
-        N.potential += 20
+        N.potential += 40
 
 
 while i < 1000000:
@@ -83,6 +82,7 @@ while i < 1000000:
         N2.firing = 1
         N1.inhibited = 1
 
+
     if N1.inhibited == 1:
         inhib(N1)
 
@@ -104,10 +104,10 @@ while i < 1000000:
 
     #print(str(N3.firing)+', '+str(N3.potential))
 
-    print('N1:(' + str(N1.potential) + ')' + '\t\tN2:(' + str(N2.potential) + ',' + ')')
-    print(str(N1.firing)+','+str(N2.firing))
+    # print('N1:(' + str(N1.potential) + ')' + '\t\tN2:(' + str(N2.potential) + ',' + ')')
+    # print(str(N1.firing)+','+str(N2.firing))
 
-    ret = str(N1.firing) + ',' + str(N2.firing)
+    ret = str(N1.firing) + ',' + str(N1.potential)[:6] + ',' + str(N2.firing) + ',' + str(N2.potential)[:6]
     f.write(ret+'\n')
 
     if N3.firing == 1:
@@ -134,7 +134,7 @@ while i < 1000000:
 
 
     i += 1
-    time.sleep(1)
+    #time.sleep(1)
 
 f.close()
 
