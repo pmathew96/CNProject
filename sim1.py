@@ -39,18 +39,16 @@ def depolarize(N):
     N.potential += 2
 
 i = 0
-global inhibCtr
-inhibCtr = 0
 
-def inhib(N):
-    global inhibCtr
-    if inhibCtr == 0:
-        N.potential -= 30
-    inhibCtr += 1
-    if inhibCtr == 8:
-        inhibCtr = 0
-        N.inhibited = 0
-        N.potential += 40
+# def inhib(N):
+#     global inhibCtr
+#     if inhibCtr == 0:
+#         N.potential -= 30
+#     inhibCtr += 1
+#     if inhibCtr == 8:
+#         inhibCtr = 0
+#         N.inhibited = 0
+#         N.potential += 40
 
 
 while i < 1000000:
@@ -65,10 +63,10 @@ while i < 1000000:
 
 
     #generating random numbers
-    randNum1 = random.randint(0,5)
+    randNum1 = random.randint(4,8)
     if randNum1 != 0:
         randNum1 -= random.uniform(0,1)
-    randNum2 = random.randint(0,5)
+    randNum2 = random.randint(4,8)
     if randNum2 != 0:
         randNum2 -= random.uniform(0,1)
     N1.potential += randNum1
@@ -77,30 +75,27 @@ while i < 1000000:
     if N1.potential > N1.threshold:
         N1.firing = 1
         N2.inhibited = 1
+        N2.potential -= random.randint(6,8)
+
 
     if N2.potential > N2.threshold:
         N2.firing = 1
         N1.inhibited = 1
+        N1.potential -= random.randint(6,8)
 
 
-    if N1.inhibited == 1:
-        inhib(N1)
 
-
-    if N2.inhibited == 1:
-        inhib(N2)
-
-    if N1.firing == 1:
-        N3.potential += 20
-
-    if N2.firing == 1:
-        N3.potential += 20
-
-    if N3.potential >= N3.threshold:
-        N3.firing = 1
-
-    else:
-        N3.firing = 0
+    # if N1.firing == 1:
+    #     N3.potential += 20
+    #
+    # if N2.firing == 1:
+    #     N3.potential += 20
+    #
+    # if N3.potential >= N3.threshold:
+    #     N3.firing = 1
+    #
+    # else:
+    #     N3.firing = 0
 
     #print(str(N3.firing)+', '+str(N3.potential))
 
