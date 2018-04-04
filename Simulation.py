@@ -3,6 +3,7 @@
 '''
 import random
 import time
+import datetime
 
 # Class Neuron represents a neuron with variables
 # representing the current potential, threshold potential,
@@ -41,6 +42,9 @@ def uncoupled_simulation(N):
             N.firing = 1
         time.sleep(1)
         i += 1
+
+date = datetime.datetime.now()
+f = open(str(date) + '.txt', 'w')
 
 
 #This function demonstrates the behaviour of two
@@ -91,10 +95,12 @@ def coupled_simulation(N1, N2):
             if N2.inhibited == 1:
                 N2.inhibited = 0
 
-        print('N1: ' + str(N1.potential)[0:6] + ' ' + str(N1.firing)[0:6])
-        print('N2: ' + str(N2.potential)[0:6] + ' ' + str(N2.firing)[0:6])
-        print(' ')
+        #print('N1: ' + str(N1.potential)[0:6] + ' ' + str(N1.firing)[0:6])
+        #print('N2: ' + str(N2.potential)[0:6] + ' ' + str(N2.firing)[0:6])
+        #print(' ')
+        out = str(N1.firing)[0:6]+ ',' + str(N2.firing)[0:6]
+        f.write(out+'\n')
         i += 1
-        time.sleep(1)
+        #time.sleep(1)
 
 coupled_simulation(N1,N2)
