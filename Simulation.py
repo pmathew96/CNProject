@@ -49,9 +49,15 @@ f = open(str(date) + '.txt', 'w')
 
 #This function demonstrates the behaviour of two
 #synaptically coupled neurons
-def coupled_simulation(N1, N2):
+#The arguments are as follows:
+#N1, N2: Neuron objects
+#endogenous_ll, endogenous_ul: These provide the range of values
+#for the increase in potential in the uninhibited neuron
+#inhibited_ll, inhibited_ul: These provide the range of values
+#for the increase in potential in the inhibited neuron
+def coupled_simulation(N1, N2, endogenous_ll, endogenous_ul, inhibited_ll, inhibited_ul):
     i = 0
-    while i < 1000000:
+    while i < 100000:
         #After a neuron fires it gets hyperpolarized
         if N1.firing == 1:
             N1.firing = 0
@@ -64,15 +70,15 @@ def coupled_simulation(N1, N2):
         #of potential that happens during endogenous firing
         #when the neuron is not inhibited
         if N1.inhibited == 0:
-            N1.potential += random.uniform(4,6)
+            N1.potential += random.uniform(endogenous_ll, endogenous_ul)
         #This increase in potential represents the potential
         #increase induced by the inhibitor neuron
         else:
-            N1.potential += random.uniform(1,2)
+            N1.potential += random.uniform(inhibited_ll, inhibited_ul)
         if N2.inhibited == 0:
-            N2.potential += random.uniform(4,6)
+            N2.potential += random.uniform(endogenous_ll, endogenous_ul)
         else:
-            N2.potential += random.uniform(1,2)
+            N2.potential += random.uniform(inhibited_ll, inhibited_ul)
 
         # If both neurons cross threshold simultaneously
         # they inhibit each other and neither fires
@@ -103,4 +109,4 @@ def coupled_simulation(N1, N2):
         i += 1
         #time.sleep(1)
 
-coupled_simulation(N1,N2)
+coupled_simulation(N1, N2, 4, 5, 2, 4)
