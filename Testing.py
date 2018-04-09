@@ -1,0 +1,12 @@
+import Simulation
+
+
+
+N1 = Simulation.Neuron(-70, -55)
+N2 = Simulation.Neuron(-70, -55)
+
+for i in range(2,8,2):        #represents endogenous_ll
+    for j in range(i+1, 11, 2):#represents endogenous_ul
+        for m in range(1,(j/2)-1, 2):#represents inhibited_ll
+            for n in range(m+1, j/2):#represents inhibited_ul
+                Simulation.coupled_simulation(N1, N2, i, j, m, n)

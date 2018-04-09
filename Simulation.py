@@ -31,7 +31,7 @@ N2 = Neuron(-70, -55)
 #when it is not coupled with another
 def uncoupled_simulation(N):
     i = 0
-    while i < 1000000:
+    while i < 100000:
         if N.firing == 1:
             print(str(N.potential)[0:6] +' '+ str(N.firing)[0:6])
             N.firing = 0
@@ -43,8 +43,6 @@ def uncoupled_simulation(N):
         time.sleep(1)
         i += 1
 
-date = datetime.datetime.now()
-f = open(str(date) + '.txt', 'w')
 
 
 #This function demonstrates the behaviour of two
@@ -56,6 +54,9 @@ f = open(str(date) + '.txt', 'w')
 #inhibited_ll, inhibited_ul: These provide the range of values
 #for the increase in potential in the inhibited neuron
 def coupled_simulation(N1, N2, endogenous_ll, endogenous_ul, inhibited_ll, inhibited_ul):
+    date = datetime.datetime.now()
+    f = open(str(date) + '.txt', 'w')
+    f.write(str(endogenous_ll) + ',' + str(endogenous_ul) + ',' + str(inhibited_ll) + ',' + str(inhibited_ul))
     i = 0
     while i < 100000:
         #After a neuron fires it gets hyperpolarized
@@ -108,5 +109,6 @@ def coupled_simulation(N1, N2, endogenous_ll, endogenous_ul, inhibited_ll, inhib
         f.write(out+'\n')
         i += 1
         #time.sleep(1)
+    f.close()
 
 coupled_simulation(N1, N2, 4, 5, 2, 4)
