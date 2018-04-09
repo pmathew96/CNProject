@@ -53,9 +53,9 @@ def uncoupled_simulation(N):
 #for the increase in potential in the uninhibited neuron
 #inhibited_ll, inhibited_ul: These provide the range of values
 #for the increase in potential in the inhibited neuron
-def coupled_simulation(N1, N2, endogenous_ll, endogenous_ul, inhibited_ll, inhibited_ul):
-    date = datetime.datetime.now()
-    f = open(str(date) + '.txt', 'w')
+def coupled_simulation(N1, N2, endogenous_ll, endogenous_ul, inhibited_ll, inhibited_ul, out_file):
+    #date = datetime.datetime.now()
+    f = open(out_file + '.txt', 'w')
     f.write(str(endogenous_ll) + ',' + str(endogenous_ul) + ',' + str(inhibited_ll) + ',' + str(inhibited_ul))
     i = 0
     while i < 100000:
@@ -110,5 +110,3 @@ def coupled_simulation(N1, N2, endogenous_ll, endogenous_ul, inhibited_ll, inhib
         i += 1
         #time.sleep(1)
     f.close()
-
-coupled_simulation(N1, N2, 4, 5, 2, 4)
