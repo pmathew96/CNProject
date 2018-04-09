@@ -56,7 +56,7 @@ def uncoupled_simulation(N):
 def coupled_simulation(N1, N2, endogenous_ll, endogenous_ul, inhibited_ll, inhibited_ul, out_file):
     #date = datetime.datetime.now()
     f = open(out_file + '.txt', 'w')
-    f.write(str(endogenous_ll) + ',' + str(endogenous_ul) + ',' + str(inhibited_ll) + ',' + str(inhibited_ul))
+    f.write(str(endogenous_ll) + ',' + str(endogenous_ul) + ',' + str(inhibited_ll) + ',' + str(inhibited_ul)+'\n')
     i = 0
     while i < 100000:
         #After a neuron fires it gets hyperpolarized
