@@ -31,7 +31,7 @@ N2 = Neuron('Neuron 2', -70, -55)
 
 N3 = Neuron('Neuron 3', -70, -55)
 
-f = open(str(date) + '.txt', 'w')
+#f = open(str(date) + '.txt', 'w')
 ctr = 0
 
 
@@ -103,7 +103,8 @@ while i < 1000000:
     # print(str(N1.firing)+','+str(N2.firing))
 
     ret = str(N1.firing) + ',' + str(N1.potential)[:6] + ',' + str(N2.firing) + ',' + str(N2.potential)[:6]
-    f.write(ret+'\n')
+    print(ret)
+    #f.write(ret+'\n')
 
     if N3.firing == 1:
         N3.firing = 0
@@ -131,7 +132,7 @@ while i < 1000000:
     i += 1
     #time.sleep(1)
 
-f.close()
+#f.close()
 
 
 

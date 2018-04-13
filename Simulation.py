@@ -53,7 +53,7 @@ def uncoupled_simulation(N):
 #for the increase in potential in the uninhibited neuron
 #inhibited_ll, inhibited_ul: These provide the range of values
 #for the increase in potential in the inhibited neuron
-def coupled_simulation(N1, N2, endogenous_ll, endogenous_ul, inhibited_ll, inhibited_ul, out_file):
+def coupled_simulation(N1, N2, endogenous_ll, endogenous_ul, inhibited_ll, inhibited_ul, out_file, inhibition):
     #date = datetime.datetime.now()
     f = open(out_file + '.txt', 'w')
     f.write(str(endogenous_ll) + ',' + str(endogenous_ul) + ',' + str(inhibited_ll) + ',' + str(inhibited_ul)+'\n')
@@ -87,20 +87,16 @@ def coupled_simulation(N1, N2, endogenous_ll, endogenous_ul, inhibited_ll, inhib
             N1.potential = -75
             N2.potential = -75
 
+        #When a neuron fires it hyperpolarizes the other and inhibits it
         if N1.potential >= N1.threshold:
             N1.firing = 1
-            if N2.inhibited == 0:
-                N2.inhibited = 1
-                N2.potential = -75
-            if N1.inhibited == 1:
-                N1.inhibited = 0
+            N2.inhibited = 1
+            N2.potential -= (endogenous_ul + inhibition)
+            N1.inhibited = 0
         if N2.potential >= N2.threshold:
             N2.firing = 1
-            if N1.inhibited == 0:
-                N1.inhibited = 1
-                N1.potential = -75
-            if N2.inhibited == 1:
-                N2.inhibited = 0
+            N2.potential -= (endogenous_ul + inhibition)
+            N2.inhibited = 0
 
         #print('N1: ' + str(N1.potential)[0:6] + ' ' + str(N1.firing)[0:6])
         #print('N2: ' + str(N2.potential)[0:6] + ' ' + str(N2.firing)[0:6])
