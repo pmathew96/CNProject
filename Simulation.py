@@ -99,12 +99,13 @@ def coupled_simulation(N1, N2, endogenous_ll, endogenous_ul, inhibited_ll, inhib
             N1.potential -= (endogenous_ul + inhibition)
             N2.inhibited = 0
 
-        #print('N1: ' + str(N1.potential)[0:6] + ' ' + str(N1.firing)[0:6])
-        #print('N2: ' + str(N2.potential)[0:6] + ' ' + str(N2.firing)[0:6])
-        #print(' ')
+        # print('N1: ' + str(N1.potential)[0:6] + ' ' + str(N1.firing)[0:6])
+        # print('N2: ' + str(N2.potential)[0:6] + ' ' + str(N2.firing)[0:6])
+        # print(' ')
         out = str(N1.firing)+ ',' + str(N1.potential)[0:6]+ ',' + str(N2.firing) + ',' + str(N2.potential)[0:6]
         f.write(out+'\n')
         i += 1
         #time.sleep(1)
     f.close()
 
+coupled_simulation(N1, N2, 6, 10, 4, 6, 'test.txt', 2)
