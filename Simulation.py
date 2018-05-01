@@ -20,11 +20,7 @@ class Neuron:
         self.potential = p
         self.threshold = t
 
-#Both neuron objects are initialized with
-#resting potentials of -70(mV) and threshold potentials of
-#-55(mV)
-N1 = Neuron(-70, -55)
-N2 = Neuron(-70, -55)
+
 
 
 #This function demonstrates how a neuron fires endogenously
@@ -53,8 +49,15 @@ def uncoupled_simulation(N):
 #for the increase in potential in the uninhibited neuron
 #inhibited_ll, inhibited_ul: These provide the range of values
 #for the increase in potential in the inhibited neuron
-def coupled_simulation(N1, N2, endogenous_ll, endogenous_ul, inhibited_ll, inhibited_ul, out_file, inhibition):
+def coupled_simulation(endogenous_ll, endogenous_ul, inhibited_ll, inhibited_ul, out_file, inhibition):
     #date = datetime.datetime.now()
+
+
+    # Both neuron objects are initialized with
+    # resting potentials of -70(mV) and threshold potentials of
+    # -55(mV)
+    N1 = Neuron(-70, -55)
+    N2 = Neuron(-70, -55)
     f = open(out_file + '.txt', 'w')
     f.write(str(endogenous_ll) + ',' + str(endogenous_ul) + ',' + str(inhibited_ll) + ',' + str(inhibited_ul)+ ',' + str(inhibition)+ '\n')
     i = 0
@@ -99,13 +102,13 @@ def coupled_simulation(N1, N2, endogenous_ll, endogenous_ul, inhibited_ll, inhib
             N1.potential -= (endogenous_ul + inhibition)
             N2.inhibited = 0
 
-        # print('N1: ' + str(N1.potential)[0:6] + ' ' + str(N1.firing)[0:6])
-        # print('N2: ' + str(N2.potential)[0:6] + ' ' + str(N2.firing)[0:6])
-        # print(' ')
+        #print('N1: ' + str(N1.potential)[0:6] + ' ' + str(N1.firing)[0:6])
+        #print('N2: ' + str(N2.potential)[0:6] + ' ' + str(N2.firing)[0:6])
+        #print(' ')
         out = str(N1.firing)+ ',' + str(N1.potential)[0:6]+ ',' + str(N2.firing) + ',' + str(N2.potential)[0:6]
         f.write(out+'\n')
         i += 1
         #time.sleep(1)
     f.close()
 
-coupled_simulation(N1, N2, 6, 10, 4, 6, 'test.txt', 2)
+coupled_simulation(2, 8, 1, 2, 'test.txt', 2)

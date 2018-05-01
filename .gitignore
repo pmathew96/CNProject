@@ -1,3 +1,6 @@
 
 *.txt
 *.xml
+*.xml
+.DS_Store
+*.pyc
