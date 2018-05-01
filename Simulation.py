@@ -94,12 +94,12 @@ def coupled_simulation(endogenous_ll, endogenous_ul, inhibited_ll, inhibited_ul,
         if N1.potential >= N1.threshold:
             N1.firing = 1
             N2.inhibited = 1
-            N2.potential -= (endogenous_ul + inhibition)
+            N2.potential -= inhibition
             N1.inhibited = 0
         if N2.potential >= N2.threshold:
             N2.firing = 1
             N1.inhibited = 1
-            N1.potential -= (endogenous_ul + inhibition)
+            N1.potential -= inhibition
             N2.inhibited = 0
 
         #print('N1: ' + str(N1.potential)[0:6] + ' ' + str(N1.firing)[0:6])
